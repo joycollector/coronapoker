@@ -16,7 +16,7 @@
     "compression": "^1.7.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "gun": "0.2019.413",
+    "gun": "0.2019.416",
     "polka": "next",
     "random-number-csprng": "^1.0.2",
     "session-file-store": "^1.4.0",
