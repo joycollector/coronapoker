@@ -1,6 +1,6 @@
 import randomNumber from "random-number-csprng";
 
-const values = [
+export const cardValues = [
   "2",
   "3",
   "4",
@@ -29,7 +29,7 @@ async function shuffle(a) {
 
 export async function getRandomPack() {
   const suits = [1, 2, 3, 4];
-  const cards = values.flatMap((value) =>
+  const cards = cardValues.flatMap((value) =>
     suits.map((suit) => `${value}${suit}`)
   );
   return shuffle(cards);
@@ -37,7 +37,7 @@ export async function getRandomPack() {
 
 export async function getCards(n, used = []) {
   const usedSet = new Set(used);
-  if (usedSet.size + n > values.length * 4) {
+  if (usedSet.size + n > cardValues.length * 4) {
     throw new Error(
       `can not generate ${n} cards for ${usedSet.size} used cards`
     );
