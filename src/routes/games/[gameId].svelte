@@ -11,9 +11,9 @@
 
     let playersStoreInstance;
     let players;
-    $: playersStoreInstance = playersStore(gameId);
     $: {
-        players = placePlayers(Object.entries($playersStoreInstance)
+        playersStoreInstance = playersStore(gameId);
+        players = placePlayers(Object.entries($playersStoreInstance || [])
                 .filter(([name]) => name !== "_")
                 .map(([name, money]) => ({ name, money })));
     }
@@ -63,7 +63,7 @@
     <div class="table">Corona Poker</div>
     {#each players as {name, money, place}}
         <div class="player" style="{`grid-area: ${place}`}">
-            <img class="avatar" src={`https://api.adorable.io/avatars/60/${name}@adorable.io.png`} />
+            <img class="avatar" src={`https://api.adorable.io/avatars/60/${name}@adorable.io.png`} alt={name}/>
             {name}: {money}
         </div>
     {/each}

@@ -15,11 +15,18 @@ function getPlayers(id) {
 }
 
 export function playersStore(id) {
-  const localStore = writable(({}), () => {
-    getPlayers(id).on((data) => localStore.set(data));
-    return () => getGame(id).off();
+  const players = getPlayers(id);
+  const localStore = writable({}, () => {
+    players.on((data) => {
+      localStore.set(data);
+    });
+    return () => {
+      // players.off();
+    };
   });
-
+  players.once((data) => {
+    localStore.set(data);
+  });
   return {
     subscribe: localStore.subscribe,
   };
@@ -28,7 +35,9 @@ export function playersStore(id) {
 export function currentUserStore(sessionId) {
   const localStore = writable("", () => {
     getSessionUser(sessionId).on((data) => localStore.set(data));
-    return () => getSessionUser(sessionId).off();
+    return () => {
+      // getSessionUser(sessionId).off();
+    };
   });
 
   return {
