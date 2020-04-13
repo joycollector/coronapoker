@@ -1,65 +1,50 @@
-import uuid from "uuid/v4";
-import { gunStore } from "@Stores/gunStore";
+import { v4 as uuid } from "uuid";
+import { gun } from "@Services/gun";
 import { writable } from "svelte/store";
 
-function gameStoreGun(id) {
-  // const store = gunStore("game", null);
-  //
-  // function newGame(user) {
-  //   const game = {id: uuid};
-  // }
+function getSessionUser(sessionId) {
+  return gun.get("sessions").get(sessionId);
+}
+
+function getGame(id) {
+  return gun.get("games").get(id);
+}
+
+function getPlayers(id) {
+  return gun.get("games").get(id).get("players");
+}
+
+export function playersStore(id) {
+  const localStore = writable(({}), () => {
+    getPlayers(id).on((data) => localStore.set(data));
+    return () => getGame(id).off();
+  });
 
   return {
-    subscribe: store.subscribe,
+    subscribe: localStore.subscribe,
   };
 }
-export const testStore = gunStore("test", 0);
 
-const gameStore = writable({
-  id: "sasdasd-asdasd-asdasd",
-  players: [
-    {
-      name: "joycollector",
-      money: 1000,
-    },
-    {
-      name: "sshkalikov",
-      money: 1000,
-    },
-    {
-      name: "mario",
-      money: 1000,
-    },
-    {
-      name: "luigi",
-      money: 1000,
-    },
-  ],
-  stage: [
-    {
-      dealer: "joycollector",
-      rounds: [
-        {
-          mario: {
-            type: "pending",
-            amount: 10,
-          },
-          luigi: {
-            type: "pending",
-            amount: 20,
-          },
-          sshkalikov: {
-            type: "active",
-            amount: 20,
-          },
-        },
-      ],
-      cards: {
-        mario: ["A1", "K1"],
-        luigi: ["T2", "T4"],
-        sshkalikov: ["91", "Q1"],
-      },
-      table: ["74", "71", "72"],
-    },
-  ],
-});
+export function currentUserStore(sessionId) {
+  const localStore = writable("", () => {
+    getSessionUser(sessionId).on((data) => localStore.set(data));
+    return () => getSessionUser(sessionId).off();
+  });
+
+  return {
+    subscribe: localStore.subscribe,
+  };
+}
+
+export function newGame(name, sessionId) {
+  const newGameId = uuid();
+  getPlayers(newGameId).put({ [name]: 1000 });
+  getSessionUser(sessionId).put(name);
+  return newGameId;
+}
+
+export function joinGame(name, id, sessionId) {
+  getPlayers(id).put({ [name]: 1000 });
+  getSessionUser(sessionId).put(name);
+  return id;
+}

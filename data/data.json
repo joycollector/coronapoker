@@ -1,23 +1,11 @@
 {
   "id": "sasdasd-asdasd-asdasd",
-  "players": [
-    {
-      "name": "joycollector",
-      "money": 1000
-    },
-    {
-      "name": "sshkalikov",
-      "money": 1000
-    },
-    {
-      "name": "mario",
-      "money": 1000
-    },
-    {
-      "name": "luigi",
-      "money": 1000
-    }
-  ],
+  "players": {
+    "joycollector": 1000,
+    "mario": 1000,
+    "luigi": 1000,
+    "sshkalikov": 1000
+  },
   "stage": [
     {
       "dealer": "joycollector",

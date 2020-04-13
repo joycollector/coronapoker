@@ -18,13 +18,16 @@ app.use(
     name: "pokerSession",
     secret: "Ra-:4xJ?89h3!C}5",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { maxAge: 31536000 },
     store: new FileStore({ path: `.sessions` }),
   }),
   compression({ threshold: 0 }),
   sirv("static", { dev }),
-  sapper.middleware({ ignore: "gun" })
+  sapper.middleware({
+    ignore: "gun",
+    session: ({ sessionID }) => ({ sessionID }),
+  })
 );
 app.use(Gun.serve);
 const server = app.listen(PORT, (err) => {
