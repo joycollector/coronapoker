@@ -31,4 +31,4 @@ const server = app.listen(PORT, (err) => {
   if (err) console.log("error", err);
 });
 
-export const gun = Gun({ file: "data.json", web: server });
+export const gun = Gun({ file: ".gun", web: server });

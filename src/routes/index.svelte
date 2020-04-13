@@ -1,12 +1,5 @@
 <script>
-  import { onMount } from "svelte";
-
-  let test;
-
-  onMount(async () => {
-    const gunModule = await import("@Stores/stores");
-    test = gunModule.test;
-  });
+  import { testStore } from "@Stores/testStore";
 </script>
 
 <style>
@@ -55,7 +48,7 @@
   <img alt="Borat" src="great-success.png" />
   <figcaption>HIGH FIVE!</figcaption>
 </figure>
-<input bind:value={$test} />
+<input bind:value={$testStore} />
 
 <p>
   <strong>
