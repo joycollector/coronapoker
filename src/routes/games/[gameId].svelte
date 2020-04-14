@@ -12,6 +12,10 @@
 
     const currentUser = currentUserStore(sessionID);
 
+    const startNewGame = function() {
+        fetch(`/api/games/${gameId}`, { method: "POST" });
+    };
+
     let playersStoreInstance;
     let players;
     let deck = getCards(3, []);
@@ -70,6 +74,7 @@
 <div class="game">
     <div class="table">
         <div>Corona Poker</div>
+        <button on:click={startNewGame}>START</button>
         <div class="cards">
             {#each deck as card}
                 <Card card={card} />

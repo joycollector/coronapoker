@@ -11,22 +11,20 @@
     "nextStage": {},
     "prevStage": {},
     "dealer": "joycollector",
-    "round":
-      {
-        "mario": {
-          "type": "pending",
-          "amount": 10
-        },
-        "luigi": {
-          "type": "pending",
-          "amount": 20
-        },
-        "sshkalikov": {
-          "type": "active",
-          "amount": 20
-        }
+    "round": {
+      "mario": {
+        "type": "pending",
+        "amount": 10
+      },
+      "luigi": {
+        "type": "pending",
+        "amount": 20
+      },
+      "sshkalikov": {
+        "type": "active",
+        "amount": 20
       }
-    ,
+    },
     "cards": {
       "mario": [
         "A1",

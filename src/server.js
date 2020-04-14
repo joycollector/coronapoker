@@ -5,6 +5,7 @@ import session from "express-session";
 import compression from "compression";
 import sessionFileStore from "session-file-store";
 import Gun from "gun";
+import { promisifyGun } from "@Utils/promisifyGun";
 import * as sapper from "@sapper/server";
 
 const FileStore = sessionFileStore(session);
@@ -29,9 +30,10 @@ app.use(
     session: ({ sessionID }) => ({ sessionID }),
   })
 );
-app.use(Gun.serve);
 const server = app.listen(PORT, (err) => {
   if (err) console.log("error", err);
 });
+
+promisifyGun(Gun);
 
 export const gun = Gun({ file: ".gun", web: server });
