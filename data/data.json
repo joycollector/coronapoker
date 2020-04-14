@@ -6,31 +6,45 @@
     "luigi": 1000,
     "sshkalikov": 1000
   },
-  "stage": [
-    {
-      "dealer": "joycollector",
-      "rounds": [
-        {
-          "mario": {
-            "type": "pending",
-            "amount": 10
-          },
-          "luigi": {
-            "type": "pending",
-            "amount": 20
-          },
-          "sshkalikov": {
-            "type": "active",
-            "amount": 20
-          }
+  "pack": "[]",
+  "stage": {
+    "nextStage": {},
+    "prevStage": {},
+    "dealer": "joycollector",
+    "round":
+      {
+        "mario": {
+          "type": "pending",
+          "amount": 10
+        },
+        "luigi": {
+          "type": "pending",
+          "amount": 20
+        },
+        "sshkalikov": {
+          "type": "active",
+          "amount": 20
         }
+      }
+    ,
+    "cards": {
+      "mario": [
+        "A1",
+        "K1"
       ],
-      "cards": {
-        "mario": ["A1", "K1"],
-        "luigi": ["T2", "T4"],
-        "sshkalikov": ["91", "Q1"]
-      },
-      "table": ["74", "71", "72"]
-    }
-  ]
+      "luigi": [
+        "T2",
+        "T4"
+      ],
+      "sshkalikov": [
+        "91",
+        "Q1"
+      ]
+    },
+    "table": [
+      "74",
+      "71",
+      "72"
+    ]
+  }
 }

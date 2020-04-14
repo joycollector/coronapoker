@@ -10,6 +10,10 @@ function getGame(id) {
   return gun.get("games").get(id);
 }
 
+function getCards(gameId, username) {
+  return gun.get("games").get(id).get("stage").get("cards").get(username);
+}
+
 function getPlayers(id) {
   return gun.get("games").get(id).get("players");
 }
