@@ -2,9 +2,13 @@
     import { getSuitById } from "@Services/suits";
 
     export let card;
+    export let className;
 
     let suit;
-    $: suit = getSuitById(Number(card[1]))
+    $: suit = card[1] ? getSuitById(Number(card[1])) : null
+
+    let value = card ? card[0] : null;
+    let valueLabel = value === "T" ? 10 : value;
 </script>
 <style>
     .card {
@@ -22,6 +26,18 @@
         align-items: center;
     }
 
+    .shirt {
+        border-radius: 3px;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAX0lEQVQoU2O8uPzmf/1IdUYGBgaGpZtu/o9u/MywtJ6XIdoPIgaTB3MIKQIpJmgS3ER81iE7i5HB+Mx/bG5Cdzsj2EQ0h2PzINwzMElcoYASBPiCipGQSTBnoZiILzwBXwuWB19HR+IAAAAASUVORK5CYII=) repeat;
+        border: 1px solid #2d2a7d;
+        display: flex;
+        align-self: stretch;
+        top: 3px;
+        bottom: 3px;
+        left: 3px;
+        right: 3px;
+    }
+
     .card > * {
         position: absolute;
     }
@@ -32,18 +48,22 @@
         align-self: center;
     }
 
-    .card > span:first-child {
+    .card > span:not(.shirt):first-child {
         top: 0;
         align-self: flex-start;
     }
 
-    .card > span:last-child {
+    .card > span:not(.shirt):last-child {
         bottom: 0;
         align-self: flex-end;
     }
 </style>
-<span class="card">
-    <span>{card[0]}</span>
-    <img src={`/${suit}.svg`} alt={suit}/>
-    <span>{card[0]}</span>
+<span class="card {className}">
+    {#if value}
+        <span>{valueLabel}</span>
+        <img src={`/${suit}.svg`} alt={suit}/>
+        <span>{valueLabel}</span>
+    {:else}
+        <span class="shirt" />
+    {/if}
 </span>

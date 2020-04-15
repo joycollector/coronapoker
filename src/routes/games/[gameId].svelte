@@ -1,16 +1,15 @@
 <script>
-    import { stores } from "@sapper/app";
-    import { currentUserStore, playersStore } from "@Stores/gameStore";
-    import { placePlayers } from "@Services/placement";
-    import { getCards } from "@Services/pack";
+    import {stores} from "@sapper/app";
+    import {playersStore} from "@Stores/gameStore";
+    import {placePlayers} from "@Services/placement";
+    import {getCards} from "@Services/pack";
     import Card from "@Components/Card.svelte";
+    import Player from "../../components/Player.svelte";
 
 
-    const { page, session } = stores();
-    const { gameId } = $page.params;
-    const { sessionID } = $session;
-
-    const currentUser = currentUserStore(sessionID);
+    const {page, session} = stores();
+    const {gameId} = $page.params;
+    const {sessionID} = $session;
 
     const startNewGame = function() {
         fetch(`/api/games/${gameId}`, { method: "POST" });
@@ -23,7 +22,7 @@
         playersStoreInstance = playersStore(gameId);
         players = placePlayers(Object.entries($playersStoreInstance || [])
                 .filter(([name]) => name !== "_")
-                .map(([name, money]) => ({ name, money })));
+                .map(([name, money]) => ({name, money})));
     }
 </script>
 <style>
@@ -51,19 +50,6 @@
         flex-direction: column;
     }
 
-    .player {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .avatar {
-        border-radius: 30px;
-        width: 60px;
-        height: 60px;
-    }
-
     .cards {
         display: grid;
         grid-column-gap: 10px;
@@ -82,10 +68,7 @@
         </div>
     </div>
     {#each players as {name, money, place}}
-        <div class="player" style="{`grid-area: ${place}`}">
-            <img class="avatar" src={`https://api.adorable.io/avatars/60/${name}@adorable.io.png`} alt={name}/>
-            {name}: {money}
-        </div>
+        <Player gameId={gameId} name={name} money={money} place={place} />
     {/each}
 </div>
 

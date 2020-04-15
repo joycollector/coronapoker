@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { gun } from "@Services/gun";
-import { writable } from "svelte/store";
+import { readable, writable } from "svelte/store";
 
 function getSessionUser(sessionId) {
   return gun.get("sessions").get(sessionId);
@@ -8,10 +8,6 @@ function getSessionUser(sessionId) {
 
 function getGame(id) {
   return gun.get("games").get(id);
-}
-
-function getCards(gameId, username) {
-  return gun.get("games").get(id).get("stage").get("cards").get(username);
 }
 
 function getPlayers(id) {
@@ -34,6 +30,22 @@ export function playersStore(id) {
   return {
     subscribe: localStore.subscribe,
   };
+}
+
+function readonlyStore(gunObject) {
+  const { subscribe } = readable({}, (set) => {
+    gunObject.on(set);
+  });
+  return {
+    subscribe,
+  };
+}
+
+export function playerBetStore(gameId, username) {
+  return readonlyStore(getGame(gameId).get("stage").get("round").get(username));
+}
+export function playerCardsStore(gameId, username) {
+  return readonlyStore(getGame(gameId).get("stage").get("cards").get(username));
 }
 
 export function currentUserStore(sessionId) {
