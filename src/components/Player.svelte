@@ -13,12 +13,7 @@
     const currentUser = currentUserStore(sessionID);
     const currentUserName = $currentUser;
     const bet = playerBetStore(gameId, name);
-
-    let cards;
-
-    $: {
-        cards = currentUserName === name ? playerCardsStore(gameId, name) : null
-    }
+    const cards = playerCardsStore(gameId, name);
 </script>
 <style>
     .player {
@@ -53,10 +48,10 @@
     }
 </style>
 <div class="player" style="{`grid-area: ${place}`}">
-    {#if false}
+    {#if true}
         <div class="cards">
-            <Card card={cards[0]} className="firstCard" />
-            <Card card={cards[1]} className="secondCard" />
+            <Card card={$cards[0]} className="firstCard" />
+            <Card card={$cards[1]} className="secondCard" />
         </div>
     {:else}
         <img class="avatar" src={`https://api.adorable.io/avatars/60/${name}@adorable.io.png`} alt={name}/>

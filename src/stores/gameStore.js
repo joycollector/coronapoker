@@ -32,9 +32,9 @@ export function playersStore(id) {
   };
 }
 
-function readonlyStore(gunObject) {
+function readonlyStore(gunObject, isArray) {
   const { subscribe } = readable({}, (set) => {
-    gunObject.on(set);
+    gunObject.on(isArray ? (val) => set(val ? JSON.parse(val) : []) : set);
   });
   return {
     subscribe,
@@ -45,7 +45,7 @@ export function playerBetStore(gameId, username) {
   return readonlyStore(getGame(gameId).get("stage").get("round").get(username));
 }
 export function playerCardsStore(gameId, username) {
-  return readonlyStore(getGame(gameId).get("stage").get("cards").get(username));
+  return readonlyStore(getGame(gameId).get("stage").get("cards").get(username), true);
 }
 
 export function currentUserStore(sessionId) {

@@ -62,9 +62,7 @@
         <div>Corona Poker</div>
         <button on:click={startNewGame}>START</button>
         <div class="cards">
-            {#each deck as card}
-                <Card card={card} />
-            {/each}
+
         </div>
     </div>
     {#each players as {name, money, place}}

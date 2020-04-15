@@ -5,10 +5,13 @@
     export let className;
 
     let suit;
-    $: suit = card[1] ? getSuitById(Number(card[1])) : null
-
-    let value = card ? card[0] : null;
-    let valueLabel = value === "T" ? 10 : value;
+    let value;
+    let valueLabel;
+    $: {
+        suit = card ? getSuitById(Number(card[1])) : null;
+        value = card ? card[0] : null;
+        valueLabel = value === "T" ? 10 : value;
+    }
 </script>
 <style>
     .card {

@@ -49,7 +49,7 @@ export async function post(req) {
   stageRef.get("round").put(roundRef);
 
   // Set current cards
-  stageRef.get("cards").put(JSON.stringify(cards));
+  stageRef.get("cards").put(cards);
 
   // Set current stage
   game.get("stage").put(stageRef);
