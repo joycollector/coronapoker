@@ -30,7 +30,7 @@
         position: relative;
         display: grid;
         grid-template-areas: "player4 player5 player6" "player3 table player7" "player2 player1 player8";
-        grid-template-columns: 60px 1fr 60px;
+        grid-template-columns: max-content 1fr max-content;
         grid-template-rows: max-content 400px max-content;
         height: 100%;
         grid-column-gap: 20px;
